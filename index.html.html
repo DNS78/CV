@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DARIA.SIURA.CV - ISPF 7.4</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #000800;
+  --phosphor: #5BFA5B;
+  --phosphor-bright: #B6FFB6;
+  --phosphor-dim: #2E8B2E;
+  --phosphor-soft: #9AE89A;
+  --amber-accent: #FFB000;
+  --red-alert: #FF6B6B;
+  --mono: 'IBM Plex Mono', 'Consolas', 'Courier New', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  background: #000;
+}
+
+body {
+  background: var(--bg);
+  color: var(--phosphor);
+  font-family: var(--mono);
+  font-size: 14.5px;
+  line-height: 1.5;
+  min-height: 100vh;
+  padding: 0;
+  position: relative;
+  overflow-x: hidden;
+  text-shadow: 0 0 1px var(--phosphor), 0 0 4px rgba(91,250,91,0.25);
+}
+
+/* CRT scan lines */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0) 0px,
+    rgba(0,0,0,0) 2px,
+    rgba(0,0,0,0.18) 3px,
+    rgba(0,0,0,0.18) 3px
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* CRT vignette */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.55) 100%);
+  pointer-events: none;
+  z-index: 99;
+}
+
+.screen {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 32px 60px;
+  position: relative;
+}
+
+/* Top ISPF banner */
+.banner {
+  border-top: 1px solid var(--phosphor);
+  border-bottom: 1px solid var(--phosphor);
+  padding: 6px 0;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.banner .left { color: var(--phosphor-bright); font-weight: 600; }
+.banner .center { color: var(--phosphor-soft); }
+.banner .right { color: var(--phosphor-dim); font-size: 12px; }
+
+.panel-id {
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  color: var(--phosphor-bright);
+  margin-bottom: 18px;
+}
+
+/* READY prompt block */
+.ready {
+  margin-bottom: 26px;
+  font-size: 13.5px;
+}
+.ready .line { color: var(--phosphor-soft); margin-bottom: 2px; }
+.ready .prompt { color: var(--phosphor-bright); font-weight: 600; }
+.ready .cmd { color: var(--phosphor-bright); }
+.ready .cursor {
+  display: inline-block;
+  width: 9px;
+  height: 16px;
+  background: var(--phosphor-bright);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: blink 1.05s steps(2) infinite;
+  box-shadow: 0 0 6px var(--phosphor);
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Identity block (big name) */
+.identity {
+  margin: 30px 0 28px;
+  text-align: center;
+}
+.identity .ascii-name {
+  font-family: 'VT323', var(--mono);
+  font-size: clamp(34px, 6.5vw, 60px);
+  line-height: 1;
+  color: var(--phosphor-bright);
+  letter-spacing: 4px;
+  text-shadow: 0 0 6px var(--phosphor), 0 0 14px rgba(91,250,91,0.4);
+}
+.identity .ascii-name .small { font-size: 0.5em; opacity: 0.85; letter-spacing: 2px; display: block; margin-top: 6px; }
+.identity .tag {
+  font-size: 13px;
+  color: var(--phosphor-soft);
+  margin-top: 10px;
+  letter-spacing: 1px;
+}
+.identity .tag .sep { color: var(--phosphor-dim); margin: 0 8px; }
+
+/* Section: ISPF-style panel */
+.section {
+  margin: 28px 0;
+  border: 1px solid var(--phosphor-dim);
+}
+.section-head {
+  background: var(--phosphor-dim);
+  color: #000;
+  padding: 3px 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-shadow: none;
+}
+.section-head .ds { letter-spacing: 1.2px; }
+.section-head .meta { font-size: 11px; opacity: 0.8; font-weight: 500; }
+.section-body { padding: 14px 18px; }
+
+/* Profile prose */
+.profile-text {
+  color: var(--phosphor-soft);
+  line-height: 1.6;
+  font-size: 14px;
+  max-width: 90ch;
+}
+.profile-text b { color: var(--phosphor-bright); font-weight: 600; }
+
+/* Experience entries */
+.job { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px dashed var(--phosphor-dim); }
+.job:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.job-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+.job-title { color: var(--phosphor-bright); font-weight: 600; font-size: 14.5px; }
+.job-date { color: var(--phosphor-dim); font-size: 12.5px; white-space: nowrap; }
+.job-co { color: var(--amber-accent); font-size: 12.5px; margin-bottom: 8px; letter-spacing: 0.5px; }
+.job ul { list-style: none; padding-left: 0; }
+.job li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 6px;
+  color: var(--phosphor-soft);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+.job li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: var(--phosphor);
+  font-weight: 700;
+}
+.job li b { color: var(--phosphor-bright); font-weight: 600; }
+.job li .hl { color: var(--amber-accent); font-weight: 500; }
+
+/* Skill rows */
+.skill-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 8px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+.skill-label {
+  color: var(--amber-accent);
+  min-width: 180px;
+  letter-spacing: 0.5px;
+}
+.skill-vals { color: var(--phosphor-soft); flex: 1; }
+
+/* Currently building */
+.building-item {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--phosphor-dim);
+}
+.building-item:last-child { border-bottom: none; }
+.building-status {
+  display: inline-block;
+  color: var(--amber-accent);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  border: 1px solid var(--amber-accent);
+  padding: 1px 7px;
+  margin-right: 10px;
+  text-shadow: none;
+}
+.building-title { color: var(--phosphor-bright); font-weight: 600; font-size: 14px; }
+.building-desc { color: var(--phosphor-soft); font-size: 13px; margin-top: 4px; line-height: 1.55; }
+
+/* Two col blocks */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.col-block .col-head {
+  color: var(--amber-accent);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+.col-block .col-item { color: var(--phosphor-soft); font-size: 13px; margin-bottom: 4px; }
+.col-block .col-item b { color: var(--phosphor-bright); font-weight: 600; }
+.col-block .col-item .sub { color: var(--phosphor-dim); font-size: 12px; }
+
+/* Bottom F-key bar */
+.fkeys {
+  position: sticky;
+  bottom: 0;
+  margin-top: 30px;
+  padding: 6px 12px;
+  background: var(--bg);
+  border-top: 1px solid var(--phosphor);
+  font-size: 11.5px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  letter-spacing: 0.5px;
+  color: var(--phosphor-dim);
+}
+.fkeys .fkey b { color: var(--phosphor-bright); font-weight: 600; }
+.fkeys a { color: var(--phosphor-soft); text-decoration: none; }
+.fkeys a:hover { color: var(--phosphor-bright); }
+
+/* Status / footer line */
+.status {
+  margin-top: 22px;
+  padding: 4px 0;
+  border-top: 1px solid var(--phosphor-dim);
+  font-size: 12px;
+  color: var(--phosphor-dim);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.status .ok { color: var(--phosphor); }
+
+@media (max-width: 700px) {
+  .screen { padding: 16px 16px 50px; }
+  .two-col { grid-template-columns: 1fr; }
+  .skill-label { min-width: 0; width: 100%; }
+  body { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- ISPF top banner -->
+  <div class="banner">
+    <div class="left">MENU  OPTIONS  VIEW  UTILITIES  HELP</div>
+    <div class="center">--- DARIA.SIURA.CV.A2026 ---</div>
+    <div class="right">SYSTEM: ANTHROPIC  USER: RECRUITER</div>
+  </div>
+
+  <div class="panel-id">ISPF PRIMARY OPTION MENU  -  PERSONAL TECHNICAL PROFILE</div>
+
+  <!-- READY prompt -->
+  <div class="ready">
+    <div class="line"><span class="prompt">READY</span></div>
+    <div class="line"><span class="cmd">LISTCAT  ENT('DARIA.SIURA.**')  ALL</span></div>
+    <div class="line">DATASET LOCATED. OPENING...<span class="cursor"></span></div>
+  </div>
+
+  <!-- Identity -->
+  <div class="identity">
+    <div class="ascii-name">
+      DARIA SIURA
+      <span class="small">// LEGACY-TO-AI BRIDGE ARCHITECT //</span>
+    </div>
+    <div class="tag">
+      ENTERPRISE TECHNICAL PRE-SALES <span class="sep">|</span> CLIENT ADVISORY <span class="sep">|</span> EMEA <span class="sep">|</span> 15+ YEARS
+    </div>
+  </div>
+
+  <!-- 01 PROFILE -->
+  <div class="section">
+    <div class="section-head">
+      <span class="ds">DARIA.SIURA.PROFILE</span>
+      <span class="meta">REC=1   STATUS=ACTIVE</span>
+    </div>
+    <div class="section-body">
+      <div class="profile-text">
+        Enterprise technology specialist with 15+ years across <b>IBM, CA Broadcom, and Software AG</b>, focused on connecting complex enterprise systems and their data to the wider world. Proven across technical pre-sales, client advisory, technical enablement, and global early-adopter program management throughout EMEA. In 2017 led the Early Experience program for IBM's first Machine Learning for z/OS release - enterprise AI before mainstream adoption. Today I translate complex technology for audiences from engineers to senior leadership, and I'm focused on bridging enterprise data to cloud platforms, modern integration, and AI.
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 EXPERIENCE -->
+  <div class="section">
+    <div class="section-head">
+      <span class="ds">DARIA.SIURA.EXPERIENCE.LOG</span>
+      <span class="meta">RECORDS=6   SORT=DATE DESC</span>
+    </div>
+    <div class="section-body">
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title">Adabas &amp; Natural Lead - EMEA</div>
+          <div class="job-date">APR 2023 - PRESENT</div>
+        </div>
+        <div class="job-co">SOFTWARE AG  /  CONTINUOUS TENURE FROM DEC 2020</div>
+        <ul>
+          <li>Promoted from CONNX Technical Adviser; scope expanded to the <b>full Adabas &amp; Natural portfolio across EMEA</b> while continuing CONNX advisory for existing clients.</li>
+          <li>Built strategic understanding of the enterprise customer base across DevOps, Cloud, Security, and APIs - aligning the portfolio to client needs while identifying new commercial opportunities.</li>
+          <li>Surfaced portfolio gaps and growth opportunities to the global business unit, informing roadmap decisions; supported EMEA country teams on enablement, support, and commercial negotiations.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title">CONNX Technical Adviser / Modernisation &amp; Integration Lead - EMEA</div>
+          <div class="job-date">DEC 2020 - APR 2023</div>
+        </div>
+        <div class="job-co">SOFTWARE AG</div>
+        <ul>
+          <li>Primary technical contact for CONNX data integration across EMEA - <b>unlocking data locked in proprietary enterprise systems</b> and exposing it via SQL and APIs for modern consumption. Owned the full pre-sales cycle from discovery to close.</li>
+          <li>Advised enterprise customers on integrating, replicating, and virtualizing data from mainframe and legacy systems (VSAM, IMS, Adabas, Db2) into modern cloud platforms - <b>AWS, Microsoft Azure, Snowflake</b>, and other hybrid-cloud destinations - across ETL/ELT, real-time replication, and data virtualization scenarios.</li>
+          <li>Delivered technical enablement directly to <b>Global System Integrator (GSI) teams (incl. TCS)</b> and supported Software AG's regional partner strategy of aligning CONNX with GSI service offerings. Provided technical advisory on customer engagements where GSIs were the primary delivery partners.</li>
+          <li><span class="hl">Grew EMEA CONNX bookings 2-3x in first full year</span> (from a low base) and sustained strong year-on-year growth thereafter, owning the product's regional commercial growth.</li>
+          <li>Created and executed the EMEA go-to-market strategy from scratch; enabled field, sales, and partner teams to independently progress opportunities.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title">Client Services Consultant / SWAT - Db2 for z/OS Tools &amp; DevOps</div>
+          <div class="job-date">NOV 2019 - NOV 2020</div>
+        </div>
+        <div class="job-co">CA BROADCOM</div>
+        <ul>
+          <li>Trusted advisor on Broadcom's elite mainframe SWAT team, driving adoption of Db2 for z/OS Tools and Data Content Discovery.</li>
+          <li><b>Designed and delivered technical education</b> on the latest Db2 for z/OS tools, presenting at EMEA client roadshows to technical teams and <span class="hl">senior technical management at top-tier Fortune banking, finance, and insurance customers</span>.</li>
+          <li>Built strategic client relationships; provided competitive positioning and solution specialisation across Broadcom's EMEA business.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title">Early Experience Programs Lead - Information Management on System Z</div>
+          <div class="job-date">JAN 2013 - NOV 2019</div>
+        </div>
+        <div class="job-co">IBM  /  WORLDWIDE</div>
+        <ul>
+          <li>Sole worldwide focal point for IBM's global Early Experience (Beta) programs - Db2 for z/OS, IDAA, Machine Learning for z/OS, and tooling. Partnered directly with <span class="hl">many of the world's largest banking, finance, insurance, and government enterprises</span> - the strategic customers hand-selected to test pre-GA software.</li>
+          <li><b>Led the Early Experience program for IBM's first-ever Machine Learning for z/OS release (2017)</b>, working pre-GA with the Silicon Valley Db2 lab and global development teams on model and tooling testing and customer feedback - <span class="hl">enterprise AI years before mainstream adoption</span>.</li>
+          <li>Managed the end-to-end Beta lifecycle; delivered actionable feedback to development, improving quality before GA; built virtual test environments and drove early time-to-adoption.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title">Client Technical Specialist - Tivoli on System Z  /  z/OS Systems Programmer</div>
+          <div class="job-date">2010 - 2012</div>
+        </div>
+        <div class="job-co">IBM UK</div>
+        <ul>
+          <li>Technical pre-sales designing and validating enterprise solutions; contributed to a Tivoli Storage Management demo environment adopted as a <b>worldwide reusable IBM asset</b>, and led the European Tivoli Cloud Technical Community.</li>
+          <li>Hands-on z/OS systems programming secondment (installs, upgrades, maintenance to tight SLAs) - the foundation underpinning later advisory work.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 03 CURRENTLY BUILDING -->
+  <div class="section">
+    <div class="section-head">
+      <span class="ds">DARIA.SIURA.BUILDING.NOW</span>
+      <span class="meta">STATUS=IN PROGRESS</span>
+    </div>
+    <div class="section-body">
+
+      <div class="building-item">
+        <span class="building-status">IN PROGRESS</span>
+        <span class="building-title">COBOL Code Analyser</span>
+        <div class="building-desc">Python tool using the Claude API to generate plain-English documentation, variable maps, and migration-risk assessments from legacy COBOL - applying AI directly to the enterprise modernisation problem I know best.</div>
+      </div>
+
+      <div class="building-item">
+        <span class="building-status">IN PROGRESS</span>
+        <span class="building-title">AI Toolkit  /  Real Estate</span>
+        <div class="building-desc">Claude-API listing generator, client-email assistant, and lead-qualification tools for an independent French agency. Real user, real feedback - learning by building.</div>
+      </div>
+
+      <div class="building-item">
+        <span class="building-status">STRUCTURED STUDY</span>
+        <span class="building-title">Deepening the AI &amp; engineering foundation</span>
+        <div class="building-desc">Harvard CS50P and backend Python; targeting Python Institute PCAP and Microsoft Azure AI Engineer (AI-102). Daily, deliberate practice - the same way I learned the mainframe from scratch.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 04 SKILLS -->
+  <div class="section">
+    <div class="section-head">
+      <span class="ds">DARIA.SIURA.SKILLS.LIB</span>
+      <span class="meta">LOAD MODULE  /  9 GROUPS</span>
+    </div>
+    <div class="section-body">
+      <div class="skill-row"><span class="skill-label">AI &amp; MODERN</span><span class="skill-vals">Claude API (actively building), prompt engineering, LLM integration, RESTful APIs, z/OS Connect, ZOWE (CLI / Web UI / API ML)</span></div>
+      <div class="skill-row"><span class="skill-label">PROGRAMMING &amp; SCRIPTING</span><span class="skill-vals">COBOL (certified), Python (in progress - CS50P), SQL, JCL, REXX (basics)</span></div>
+      <div class="skill-row"><span class="skill-label">OPERATING SYSTEMS</span><span class="skill-vals">z/OS, Linux on Z (SUSE, Ubuntu, RedHat, CentOS), z/VM, UNIX, Windows</span></div>
+      <div class="skill-row"><span class="skill-label">MAINFRAME CORE</span><span class="skill-vals">ISPF, VSAM, SDSF, JES2, TSO, USS (OMVS / ISHELL), z/OSMF, SMP/E, SMF</span></div>
+      <div class="skill-row"><span class="skill-label">IBM PORTFOLIO</span><span class="skill-vals">Db2 for z/OS (engine + full tools), OMEGAMON, CICS TS, CICS Explorer, IDAA, ML for z/OS, IBM Cloud, IBM ZD&amp;T, Data Server Manager</span></div>
+      <div class="skill-row"><span class="skill-label">CA / BROADCOM</span><span class="skill-vals">RC/Merge/Migrator/Extract for Db2, Plan Analyzer, Database Analyzer, SYSVIEW, CA Detector, CA Endevor, CA Brightside, Data Content Discovery, Compliance Event Manager</span></div>
+      <div class="skill-row"><span class="skill-label">SOFTWARE AG</span><span class="skill-vals">Data integration &amp; replication (ETL / ELT / real-time / federation) via CONNX; Adabas &amp; Natural (MF + Open), EntireX, ApplinX</span></div>
+      <div class="skill-row"><span class="skill-label">STORAGE &amp; DATA MGMT</span><span class="skill-vals">DFSMShsm/dss, ACS Routines, Catalog Management, Backup &amp; Recovery</span></div>
+      <div class="skill-row"><span class="skill-label">DEVOPS &amp; MODERNISATION</span><span class="skill-vals">Docker (basics), Kubernetes (basics), VMware (basics)</span></div>
+    </div>
+  </div>
+
+  <!-- 05 EDUCATION / CERTS / LANGUAGES -->
+  <div class="section">
+    <div class="section-head">
+      <span class="ds">DARIA.SIURA.CREDS</span>
+      <span class="meta">EDUCATION  /  CERTS  /  LANGUAGES</span>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div class="col-block">
+          <div class="col-head">--- EDUCATION ---</div>
+          <div class="col-item"><b>MSc Knowledge Technology &amp; Management</b><br><span class="sub">Lancaster University  /  2009 - 2010</span></div>
+          <div class="col-item" style="margin-top:8px;"><b>BSc International Relations &amp; Management</b><br><span class="sub">Lancaster University  /  2006 - 2009</span></div>
+          <div class="col-head" style="margin-top:18px;">--- CERTIFICATIONS ---</div>
+          <div class="col-item"><span class="sub">Interskill  /  JCL (Experienced)</span></div>
+          <div class="col-item"><span class="sub">Interskill  /  DB2 SQL Coding</span></div>
+          <div class="col-item"><span class="sub">Interskill  /  COBOL Programming (Experienced &amp; Expert)</span></div>
+        </div>
+        <div class="col-block">
+          <div class="col-head">--- LANGUAGES ---</div>
+          <div class="col-item"><b>English</b>  <span class="sub">Fluent</span></div>
+          <div class="col-item"><b>Russian</b>  <span class="sub">Native</span></div>
+          <div class="col-item"><b>Lithuanian</b>  <span class="sub">Fluent</span></div>
+          <div class="col-item"><b>French</b>  <span class="sub">Working / Professional</span></div>
+          <div class="col-head" style="margin-top:18px;">--- REGIONAL SCOPE ---</div>
+          <div class="col-item"><span class="sub">A career across EMEA, the Gulf, Africa, and global accounts - comfortable navigating the very different business cultures across these markets.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status line -->
+  <div class="status">
+    <div><span class="ok">***</span> END OF DATA. RC=00. <span class="ok">***</span></div>
+    <div>OPEN TO: ENTERPRISE TECH × AI ROLES</div>
+  </div>
+
+</div>
+
+<!-- Sticky function key bar -->
+<div class="fkeys">
+  <span class="fkey"><b>F1</b>=HELP</span>
+  <span class="fkey"><b>F3</b>=EXIT</span>
+  <span class="fkey"><a href="https://linkedin.com/in/darjasiura"><b>F4</b>=LINKEDIN</a></span>
+  <span class="fkey"><b>F7</b>=UP</span>
+  <span class="fkey"><b>F8</b>=DOWN</span>
+  <span class="fkey"><b>F12</b>=CANCEL</span>
+</div>
+
+</body>
+</html>
