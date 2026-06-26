@@ -18,11 +18,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
-html {
-  background: #000;
-}
-
+html { background: #000; }
 body {
   background: var(--bg);
   color: var(--phosphor);
@@ -35,24 +31,14 @@ body {
   overflow-x: hidden;
   text-shadow: 0 0 1px var(--phosphor), 0 0 4px rgba(91,250,91,0.25);
 }
-
-/* CRT scan lines */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0,0,0,0) 0px,
-    rgba(0,0,0,0) 2px,
-    rgba(0,0,0,0.18) 3px,
-    rgba(0,0,0,0.18) 3px
-  );
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.18) 3px, rgba(0,0,0,0.18) 3px);
   pointer-events: none;
   z-index: 100;
 }
-
-/* CRT vignette */
 body::after {
   content: '';
   position: fixed;
@@ -62,14 +48,8 @@ body::after {
   z-index: 99;
 }
 
-.screen {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px 32px 60px;
-  position: relative;
-}
+.screen { max-width: 1100px; margin: 0 auto; padding: 24px 32px 60px; position: relative; }
 
-/* Top ISPF banner */
 .banner {
   border-top: 1px solid var(--phosphor);
   border-bottom: 1px solid var(--phosphor);
@@ -83,24 +63,13 @@ body::after {
   font-size: 13px;
   letter-spacing: 0.5px;
 }
-
 .banner .left { color: var(--phosphor-bright); font-weight: 600; }
 .banner .center { color: var(--phosphor-soft); }
 .banner .right { color: var(--phosphor-dim); font-size: 12px; }
 
-.panel-id {
-  text-align: center;
-  font-size: 13px;
-  letter-spacing: 1.5px;
-  color: var(--phosphor-bright);
-  margin-bottom: 18px;
-}
+.panel-id { text-align: center; font-size: 13px; letter-spacing: 1.5px; color: var(--phosphor-bright); margin-bottom: 18px; }
 
-/* READY prompt block */
-.ready {
-  margin-bottom: 26px;
-  font-size: 13.5px;
-}
+.ready { margin-bottom: 26px; font-size: 13.5px; }
 .ready .line { color: var(--phosphor-soft); margin-bottom: 2px; }
 .ready .prompt { color: var(--phosphor-bright); font-weight: 600; }
 .ready .cmd { color: var(--phosphor-bright); }
@@ -116,11 +85,7 @@ body::after {
 }
 @keyframes blink { 50% { opacity: 0; } }
 
-/* Identity block (big name) */
-.identity {
-  margin: 30px 0 28px;
-  text-align: center;
-}
+.identity { margin: 30px 0 28px; text-align: center; }
 .identity .ascii-name {
   font-family: 'VT323', var(--mono);
   font-size: clamp(34px, 6.5vw, 60px);
@@ -130,19 +95,10 @@ body::after {
   text-shadow: 0 0 6px var(--phosphor), 0 0 14px rgba(91,250,91,0.4);
 }
 .identity .ascii-name .small { font-size: 0.5em; opacity: 0.85; letter-spacing: 2px; display: block; margin-top: 6px; }
-.identity .tag {
-  font-size: 13px;
-  color: var(--phosphor-soft);
-  margin-top: 10px;
-  letter-spacing: 1px;
-}
+.identity .tag { font-size: 13px; color: var(--phosphor-soft); margin-top: 10px; letter-spacing: 1px; }
 .identity .tag .sep { color: var(--phosphor-dim); margin: 0 8px; }
 
-/* Section: ISPF-style panel */
-.section {
-  margin: 28px 0;
-  border: 1px solid var(--phosphor-dim);
-}
+.section { margin: 28px 0; border: 1px solid var(--phosphor-dim); }
 .section-head {
   background: var(--phosphor-dim);
   color: #000;
@@ -159,69 +115,26 @@ body::after {
 .section-head .meta { font-size: 11px; opacity: 0.8; font-weight: 500; }
 .section-body { padding: 14px 18px; }
 
-/* Profile prose */
-.profile-text {
-  color: var(--phosphor-soft);
-  line-height: 1.6;
-  font-size: 14px;
-  max-width: 90ch;
-}
+.profile-text { color: var(--phosphor-soft); line-height: 1.6; font-size: 14px; max-width: 90ch; }
 .profile-text b { color: var(--phosphor-bright); font-weight: 600; }
 
-/* Experience entries */
 .job { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px dashed var(--phosphor-dim); }
 .job:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-.job-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 2px;
-}
+.job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 2px; }
 .job-title { color: var(--phosphor-bright); font-weight: 600; font-size: 14.5px; }
 .job-date { color: var(--phosphor-dim); font-size: 12.5px; white-space: nowrap; }
 .job-co { color: var(--amber-accent); font-size: 12.5px; margin-bottom: 8px; letter-spacing: 0.5px; }
 .job ul { list-style: none; padding-left: 0; }
-.job li {
-  position: relative;
-  padding-left: 22px;
-  margin-bottom: 6px;
-  color: var(--phosphor-soft);
-  font-size: 13.5px;
-  line-height: 1.55;
-}
-.job li::before {
-  content: '>';
-  position: absolute;
-  left: 0;
-  color: var(--phosphor);
-  font-weight: 700;
-}
+.job li { position: relative; padding-left: 22px; margin-bottom: 6px; color: var(--phosphor-soft); font-size: 13.5px; line-height: 1.55; }
+.job li::before { content: '>'; position: absolute; left: 0; color: var(--phosphor); font-weight: 700; }
 .job li b { color: var(--phosphor-bright); font-weight: 600; }
 .job li .hl { color: var(--amber-accent); font-weight: 500; }
 
-/* Skill rows */
-.skill-row {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 8px;
-  align-items: baseline;
-  flex-wrap: wrap;
-  font-size: 13px;
-}
-.skill-label {
-  color: var(--amber-accent);
-  min-width: 180px;
-  letter-spacing: 0.5px;
-}
+.skill-row { display: flex; gap: 14px; margin-bottom: 8px; align-items: baseline; flex-wrap: wrap; font-size: 13px; }
+.skill-label { color: var(--amber-accent); min-width: 200px; letter-spacing: 0.5px; }
 .skill-vals { color: var(--phosphor-soft); flex: 1; }
 
-/* Currently building */
-.building-item {
-  padding: 10px 0;
-  border-bottom: 1px dashed var(--phosphor-dim);
-}
+.building-item { padding: 10px 0; border-bottom: 1px dashed var(--phosphor-dim); }
 .building-item:last-child { border-bottom: none; }
 .building-status {
   display: inline-block;
@@ -236,19 +149,12 @@ body::after {
 .building-title { color: var(--phosphor-bright); font-weight: 600; font-size: 14px; }
 .building-desc { color: var(--phosphor-soft); font-size: 13px; margin-top: 4px; line-height: 1.55; }
 
-/* Two col blocks */
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.col-block .col-head {
-  color: var(--amber-accent);
-  font-size: 12px;
-  letter-spacing: 1.5px;
-  margin-bottom: 8px;
-}
+.col-block .col-head { color: var(--amber-accent); font-size: 12px; letter-spacing: 1.5px; margin-bottom: 8px; }
 .col-block .col-item { color: var(--phosphor-soft); font-size: 13px; margin-bottom: 4px; }
 .col-block .col-item b { color: var(--phosphor-bright); font-weight: 600; }
 .col-block .col-item .sub { color: var(--phosphor-dim); font-size: 12px; }
 
-/* Bottom F-key bar */
 .fkeys {
   position: sticky;
   bottom: 0;
@@ -268,7 +174,6 @@ body::after {
 .fkeys a { color: var(--phosphor-soft); text-decoration: none; }
 .fkeys a:hover { color: var(--phosphor-bright); }
 
-/* Status / footer line */
 .status {
   margin-top: 22px;
   padding: 4px 0;
@@ -294,34 +199,30 @@ body::after {
 
 <div class="screen">
 
-  <!-- ISPF top banner -->
   <div class="banner">
     <div class="left">MENU  OPTIONS  VIEW  UTILITIES  HELP</div>
     <div class="center">--- DARIA.SIURA.CV.A2026 ---</div>
-    <div class="right">SYSTEM: ANTHROPIC  USER: RECRUITER</div>
+    <div class="right">SYSTEM: zOS  USER: VISITOR</div>
   </div>
 
   <div class="panel-id">ISPF PRIMARY OPTION MENU  -  PERSONAL TECHNICAL PROFILE</div>
 
-  <!-- READY prompt -->
   <div class="ready">
     <div class="line"><span class="prompt">READY</span></div>
     <div class="line"><span class="cmd">LISTCAT  ENT('DARIA.SIURA.**')  ALL</span></div>
     <div class="line">DATASET LOCATED. OPENING...<span class="cursor"></span></div>
   </div>
 
-  <!-- Identity -->
   <div class="identity">
     <div class="ascii-name">
       DARIA SIURA
-      <span class="small">// LEGACY-TO-AI BRIDGE ARCHITECT //</span>
+      <span class="small">// MAINFRAME &amp; ENTERPRISE TECHNOLOGY //</span>
     </div>
     <div class="tag">
-      ENTERPRISE TECHNICAL PRE-SALES <span class="sep">|</span> CLIENT ADVISORY <span class="sep">|</span> EMEA <span class="sep">|</span> 15+ YEARS
+      IBM <span class="sep">|</span> CA BROADCOM <span class="sep">|</span> SOFTWARE AG <span class="sep">|</span> EMEA <span class="sep">|</span> 15+ YEARS
     </div>
   </div>
 
-  <!-- 01 PROFILE -->
   <div class="section">
     <div class="section-head">
       <span class="ds">DARIA.SIURA.PROFILE</span>
@@ -329,12 +230,11 @@ body::after {
     </div>
     <div class="section-body">
       <div class="profile-text">
-        Enterprise technology specialist with 15+ years across <b>IBM, CA Broadcom, and Software AG</b>, focused on connecting complex enterprise systems and their data to the wider world. Proven across technical pre-sales, client advisory, technical enablement, and global early-adopter program management throughout EMEA. In 2017 led the Early Experience program for IBM's first Machine Learning for z/OS release - enterprise AI before mainstream adoption. Today I translate complex technology for audiences from engineers to senior leadership, and I'm focused on bridging enterprise data to cloud platforms, modern integration, and AI.
+        Enterprise technology specialist with 15+ years across <b>IBM, CA Broadcom, and Software AG</b>, with a career spanning hands-on z/OS systems programming, technical pre-sales and advisory, global beta and quality programs, customer-facing solutions consulting, and enterprise modernisation. Deep expertise in mainframe (z/OS, Db2, IDAA, ML for z/OS, CICS, CONNX, Adabas, Natural), data integration and virtualization, and the connectivity layer between legacy enterprise systems and modern cloud and AI consumers. Proven across EMEA and globally with the world's largest banking, finance, insurance, and government enterprises. Currently extending into applied AI through structured study and hands-on projects with the Claude API.
       </div>
     </div>
   </div>
 
-  <!-- 02 EXPERIENCE -->
   <div class="section">
     <div class="section-head">
       <span class="ds">DARIA.SIURA.EXPERIENCE.LOG</span>
@@ -349,24 +249,23 @@ body::after {
         </div>
         <div class="job-co">SOFTWARE AG  /  CONTINUOUS TENURE FROM DEC 2020</div>
         <ul>
-          <li>Promoted from CONNX Technical Adviser; scope expanded to the <b>full Adabas &amp; Natural portfolio across EMEA</b> while continuing CONNX advisory for existing clients.</li>
-          <li>Built strategic understanding of the enterprise customer base across DevOps, Cloud, Security, and APIs - aligning the portfolio to client needs while identifying new commercial opportunities.</li>
-          <li>Surfaced portfolio gaps and growth opportunities to the global business unit, informing roadmap decisions; supported EMEA country teams on enablement, support, and commercial negotiations.</li>
+          <li>Promoted from CONNX Technical Adviser. Scope expanded to the <b>full Adabas &amp; Natural portfolio across EMEA</b> while continuing CONNX technical advisory for existing clients.</li>
+          <li>Developed strategic understanding of the customer base across DevOps, Cloud, Security, and APIs, ensuring the portfolio addresses client needs while identifying new commercial opportunities.</li>
+          <li>Identified and communicated portfolio gaps and growth opportunities to the global business unit, contributing to roadmap decisions. Supported EMEA country teams on enablement, technical support, and commercial negotiations.</li>
         </ul>
       </div>
 
       <div class="job">
         <div class="job-head">
-          <div class="job-title">CONNX Technical Adviser / Modernisation &amp; Integration Lead - EMEA</div>
+          <div class="job-title">CONNX Technical Adviser / Mainframe Modernisation &amp; Integration Lead - EMEA</div>
           <div class="job-date">DEC 2020 - APR 2023</div>
         </div>
         <div class="job-co">SOFTWARE AG</div>
         <ul>
-          <li>Primary technical contact for CONNX data integration across EMEA - <b>unlocking data locked in proprietary enterprise systems</b> and exposing it via SQL and APIs for modern consumption. Owned the full pre-sales cycle from discovery to close.</li>
-          <li>Advised enterprise customers on integrating, replicating, and virtualizing data from mainframe and legacy systems (VSAM, IMS, Adabas, Db2) into modern cloud platforms - <b>AWS, Microsoft Azure, Snowflake</b>, and other hybrid-cloud destinations - across ETL/ELT, real-time replication, and data virtualization scenarios.</li>
-          <li>Delivered technical enablement directly to <b>Global System Integrator (GSI) teams (incl. TCS)</b> and supported Software AG's regional partner strategy of aligning CONNX with GSI service offerings. Provided technical advisory on customer engagements where GSIs were the primary delivery partners.</li>
+          <li>Primary technical contact for CONNX data integration across EMEA, a complete platform for exposing <b>non-SQL legacy data sources</b> to modern consumers. Data stays in place, users get real-time access, treating heterogeneous legacy and modern sources as a single federated relational database, with <span class="hl">150+ database connectors out of the box</span> spanning mainframe (IMS, VSAM, Adabas), mid-tier, big data, and cloud.</li>
+          <li>Advised enterprise customers on the full range of data integration scenarios. Live virtualization and real-time SQL access against non-SQL sources (no copy, no replication), federation across distributed databases, plus ETL, ELT, and delta replication where customers needed data movement. Bridged mainframe data to dashboards, BI tools, APIs, modern applications, and cloud destinations (AWS, Microsoft Azure, Snowflake).</li>
           <li><span class="hl">Grew EMEA CONNX bookings 2-3x in first full year</span> (from a low base) and sustained strong year-on-year growth thereafter, owning the product's regional commercial growth.</li>
-          <li>Created and executed the EMEA go-to-market strategy from scratch; enabled field, sales, and partner teams to independently progress opportunities.</li>
+          <li>Created and executed the EMEA go-to-market strategy from scratch. Enabled field, sales, and partner teams to independently progress opportunities.</li>
         </ul>
       </div>
 
@@ -377,41 +276,73 @@ body::after {
         </div>
         <div class="job-co">CA BROADCOM</div>
         <ul>
-          <li>Trusted advisor on Broadcom's elite mainframe SWAT team, driving adoption of Db2 for z/OS Tools and Data Content Discovery.</li>
+          <li>Trusted advisor on Broadcom's elite mainframe SWAT team, driving adoption of Db2 for z/OS Tools and Data Content Discovery for enterprise customers.</li>
           <li><b>Designed and delivered technical education</b> on the latest Db2 for z/OS tools, presenting at EMEA client roadshows to technical teams and <span class="hl">senior technical management at top-tier Fortune banking, finance, and insurance customers</span>.</li>
-          <li>Built strategic client relationships; provided competitive positioning and solution specialisation across Broadcom's EMEA business.</li>
+          <li>Built strategic client relationships. Provided competitive positioning and solution specialisation to support Broadcom's EMEA business.</li>
         </ul>
       </div>
 
       <div class="job">
         <div class="job-head">
-          <div class="job-title">Early Experience Programs Lead - Information Management on System Z</div>
+          <div class="job-title">Early Experience (Beta) Programs Lead - Information Management on System Z</div>
           <div class="job-date">JAN 2013 - NOV 2019</div>
         </div>
         <div class="job-co">IBM  /  WORLDWIDE</div>
         <ul>
-          <li>Sole worldwide focal point for IBM's global Early Experience (Beta) programs - Db2 for z/OS, IDAA, Machine Learning for z/OS, and tooling. Partnered directly with <span class="hl">many of the world's largest banking, finance, insurance, and government enterprises</span> - the strategic customers hand-selected to test pre-GA software.</li>
-          <li><b>Led the Early Experience program for IBM's first-ever Machine Learning for z/OS release (2017)</b>, working pre-GA with the Silicon Valley Db2 lab and global development teams on model and tooling testing and customer feedback - <span class="hl">enterprise AI years before mainstream adoption</span>.</li>
-          <li>Managed the end-to-end Beta lifecycle; delivered actionable feedback to development, improving quality before GA; built virtual test environments and drove early time-to-adoption.</li>
+          <li>Sole worldwide focal point for IBM's global Early Experience (Beta) and quality programs for the Information Management portfolio on System Z, including Db2 for z/OS, IDAA, Machine Learning for z/OS, and associated tooling. Owned <b>pre-GA validation, release-readiness testing, and customer feedback loops to development</b>.</li>
+          <li>Partnered directly with <span class="hl">many of the world's largest banking, finance, insurance, and government enterprises</span>, the strategic customers hand-selected to test pre-GA software and validate new releases before general availability.</li>
+          <li>Led the Early Experience program for IBM's first-ever Machine Learning for z/OS release (2017), working pre-GA with the Silicon Valley Db2 lab and global development teams on model and tooling testing and customer feedback.</li>
+          <li>Managed the end-to-end Beta lifecycle. Delivered actionable quality feedback to development, improving release quality and readiness before GA. Built virtual test environments and drove early time-to-adoption.</li>
         </ul>
       </div>
 
       <div class="job">
         <div class="job-head">
-          <div class="job-title">Client Technical Specialist - Tivoli on System Z  /  z/OS Systems Programmer</div>
-          <div class="job-date">2010 - 2012</div>
+          <div class="job-title">z/OS Systems Programmer (DevOps Secondment)</div>
+          <div class="job-date">APR 2012 - DEC 2012</div>
         </div>
         <div class="job-co">IBM UK</div>
         <ul>
-          <li>Technical pre-sales designing and validating enterprise solutions; contributed to a Tivoli Storage Management demo environment adopted as a <b>worldwide reusable IBM asset</b>, and led the European Tivoli Cloud Technical Community.</li>
-          <li>Hands-on z/OS systems programming secondment (installs, upgrades, maintenance to tight SLAs) - the foundation underpinning later advisory work.</li>
+          <li>Hands-on z/OS systems programming role within a live production DevOps environment. Executed system refreshes, software installs and upgrades, planned maintenance, and incident resolution to tight SLAs across the IBM mainframe estate.</li>
+          <li>Worked across <b>SMP/E, JCL, ISPF, JES2, RACF, and core z/OS subsystems</b>. Foundation of hands-on sysprog experience underpinning all subsequent advisory and customer-facing roles.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <div class="job-title">Client Technical Specialist - Tivoli Software on System Z</div>
+          <div class="job-date">NOV 2010 - MAY 2012</div>
+        </div>
+        <div class="job-co">IBM UK</div>
+        <ul>
+          <li>Technical pre-sales role collaborating with sales teams to design and validate enterprise solutions for IBM clients across the UK and Europe.</li>
+          <li>Selected to represent IBM internationally. Contributed to a Tivoli Storage Management demo environment adopted as a <b>worldwide reusable IBM asset</b>, and led the European Tivoli Cloud Technical Community.</li>
         </ul>
       </div>
 
     </div>
   </div>
 
-  <!-- 03 CURRENTLY BUILDING -->
+  <div class="section">
+    <div class="section-head">
+      <span class="ds">DARIA.SIURA.SKILLS.LIB</span>
+      <span class="meta">LOAD MODULE</span>
+    </div>
+    <div class="section-body">
+      <div class="skill-row"><span class="skill-label">OPERATING SYSTEMS</span><span class="skill-vals">z/OS, Linux on Z (SUSE, Ubuntu, RedHat, CentOS), z/VM, UNIX, Windows</span></div>
+      <div class="skill-row"><span class="skill-label">MAINFRAME CORE</span><span class="skill-vals">ISPF, JCL, VSAM, SDSF, JES2, TSO, USS (OMVS / ISHELL), z/OSMF, SMP/E, SMF, RACF (basics)</span></div>
+      <div class="skill-row"><span class="skill-label">PROGRAMMING &amp; SCRIPTING</span><span class="skill-vals">COBOL (certified), Python (in progress - CS50P), SQL, JCL, REXX (basics)</span></div>
+      <div class="skill-row"><span class="skill-label">IBM PORTFOLIO</span><span class="skill-vals">Db2 for z/OS (engine + full tools), OMEGAMON, CICS TS, CICS Explorer, IDAA, Machine Learning for z/OS, IBM Cloud, IBM ZD&amp;T, Data Server Manager, Tivoli Storage Management</span></div>
+      <div class="skill-row"><span class="skill-label">CA / BROADCOM</span><span class="skill-vals">RC/Merge/Migrator/Extract for Db2, Plan Analyzer, Database Analyzer, SYSVIEW, CA Detector, CA Endevor, CA Brightside, Data Content Discovery, Compliance Event Manager</span></div>
+      <div class="skill-row"><span class="skill-label">SOFTWARE AG</span><span class="skill-vals">CONNX (data virtualization, federation, ETL/ELT, real-time replication, 150+ connectors), Adabas &amp; Natural (MF + Open), EntireX, ApplinX</span></div>
+      <div class="skill-row"><span class="skill-label">DATA &amp; INTEGRATION</span><span class="skill-vals">Data virtualization, federation, ETL, ELT, real-time replication, data synchronization, RESTful APIs, z/OS Connect, ZOWE (CLI / Web UI / API ML)</span></div>
+      <div class="skill-row"><span class="skill-label">STORAGE &amp; DATA MGMT</span><span class="skill-vals">DFSMShsm/dss, ACS Routines, Catalog Management, Backup &amp; Recovery</span></div>
+      <div class="skill-row"><span class="skill-label">AI &amp; MODERN</span><span class="skill-vals">Claude API (actively building), prompt engineering, LLM integration, MCP (Model Context Protocol - on radar), Docker (basics), Kubernetes (basics), VMware (basics)</span></div>
+      <div class="skill-row"><span class="skill-label">QUALITY &amp; PRE-GA PROGRAMS</span><span class="skill-vals">Beta program management, pre-GA validation, release-readiness testing, customer feedback loops to development, virtual test environments</span></div>
+      <div class="skill-row"><span class="skill-label">CUSTOMER-FACING &amp; COMMERCIAL</span><span class="skill-vals">Technical pre-sales, solutions consulting, technical advisory, technical enablement, demo design and delivery, competitive positioning, go-to-market strategy, customer roadshows, partner enablement</span></div>
+    </div>
+  </div>
+
   <div class="section">
     <div class="section-head">
       <span class="ds">DARIA.SIURA.BUILDING.NOW</span>
@@ -422,44 +353,24 @@ body::after {
       <div class="building-item">
         <span class="building-status">IN PROGRESS</span>
         <span class="building-title">COBOL Code Analyser</span>
-        <div class="building-desc">Python tool using the Claude API to generate plain-English documentation, variable maps, and migration-risk assessments from legacy COBOL - applying AI directly to the enterprise modernisation problem I know best.</div>
+        <div class="building-desc">Python tool using the Claude API to generate plain-English documentation, variable maps, and migration-risk assessments from legacy COBOL. Applies AI directly to the enterprise legacy modernisation problem.</div>
       </div>
 
       <div class="building-item">
         <span class="building-status">IN PROGRESS</span>
         <span class="building-title">AI Toolkit  /  Real Estate</span>
-        <div class="building-desc">Claude-API listing generator, client-email assistant, and lead-qualification tools for an independent French agency. Real user, real feedback - learning by building.</div>
+        <div class="building-desc">Claude API listing generator, client email assistant, and lead-qualification tools for an independent French agency. Real user, real feedback.</div>
       </div>
 
       <div class="building-item">
         <span class="building-status">STRUCTURED STUDY</span>
         <span class="building-title">Deepening the AI &amp; engineering foundation</span>
-        <div class="building-desc">Harvard CS50P and backend Python; targeting Python Institute PCAP and Microsoft Azure AI Engineer (AI-102). Daily, deliberate practice - the same way I learned the mainframe from scratch.</div>
+        <div class="building-desc">Harvard CS50P and backend Python. Exploring Model Context Protocol (MCP) and the wider GenAI-to-enterprise-data stack. Targeting Python Institute PCAP and Microsoft Azure AI Engineer (AI-102).</div>
       </div>
 
     </div>
   </div>
 
-  <!-- 04 SKILLS -->
-  <div class="section">
-    <div class="section-head">
-      <span class="ds">DARIA.SIURA.SKILLS.LIB</span>
-      <span class="meta">LOAD MODULE  /  9 GROUPS</span>
-    </div>
-    <div class="section-body">
-      <div class="skill-row"><span class="skill-label">AI &amp; MODERN</span><span class="skill-vals">Claude API (actively building), prompt engineering, LLM integration, RESTful APIs, z/OS Connect, ZOWE (CLI / Web UI / API ML)</span></div>
-      <div class="skill-row"><span class="skill-label">PROGRAMMING &amp; SCRIPTING</span><span class="skill-vals">COBOL (certified), Python (in progress - CS50P), SQL, JCL, REXX (basics)</span></div>
-      <div class="skill-row"><span class="skill-label">OPERATING SYSTEMS</span><span class="skill-vals">z/OS, Linux on Z (SUSE, Ubuntu, RedHat, CentOS), z/VM, UNIX, Windows</span></div>
-      <div class="skill-row"><span class="skill-label">MAINFRAME CORE</span><span class="skill-vals">ISPF, VSAM, SDSF, JES2, TSO, USS (OMVS / ISHELL), z/OSMF, SMP/E, SMF</span></div>
-      <div class="skill-row"><span class="skill-label">IBM PORTFOLIO</span><span class="skill-vals">Db2 for z/OS (engine + full tools), OMEGAMON, CICS TS, CICS Explorer, IDAA, ML for z/OS, IBM Cloud, IBM ZD&amp;T, Data Server Manager</span></div>
-      <div class="skill-row"><span class="skill-label">CA / BROADCOM</span><span class="skill-vals">RC/Merge/Migrator/Extract for Db2, Plan Analyzer, Database Analyzer, SYSVIEW, CA Detector, CA Endevor, CA Brightside, Data Content Discovery, Compliance Event Manager</span></div>
-      <div class="skill-row"><span class="skill-label">SOFTWARE AG</span><span class="skill-vals">Data integration &amp; replication (ETL / ELT / real-time / federation) via CONNX; Adabas &amp; Natural (MF + Open), EntireX, ApplinX</span></div>
-      <div class="skill-row"><span class="skill-label">STORAGE &amp; DATA MGMT</span><span class="skill-vals">DFSMShsm/dss, ACS Routines, Catalog Management, Backup &amp; Recovery</span></div>
-      <div class="skill-row"><span class="skill-label">DEVOPS &amp; MODERNISATION</span><span class="skill-vals">Docker (basics), Kubernetes (basics), VMware (basics)</span></div>
-    </div>
-  </div>
-
-  <!-- 05 EDUCATION / CERTS / LANGUAGES -->
   <div class="section">
     <div class="section-head">
       <span class="ds">DARIA.SIURA.CREDS</span>
@@ -483,21 +394,19 @@ body::after {
           <div class="col-item"><b>Lithuanian</b>  <span class="sub">Fluent</span></div>
           <div class="col-item"><b>French</b>  <span class="sub">Working / Professional</span></div>
           <div class="col-head" style="margin-top:18px;">--- REGIONAL SCOPE ---</div>
-          <div class="col-item"><span class="sub">A career across EMEA, the Gulf, Africa, and global accounts - comfortable navigating the very different business cultures across these markets.</span></div>
+          <div class="col-item"><span class="sub">A career across EMEA, the Gulf, Africa, and global accounts. Comfortable navigating the very different business cultures across these markets.</span></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Status line -->
   <div class="status">
     <div><span class="ok">***</span> END OF DATA. RC=00. <span class="ok">***</span></div>
-    <div>OPEN TO: ENTERPRISE TECH × AI ROLES</div>
+    <div>BASED IN FRANCE  /  OPEN TO REMOTE EMEA &amp; GLOBAL</div>
   </div>
 
 </div>
 
-<!-- Sticky function key bar -->
 <div class="fkeys">
   <span class="fkey"><b>F1</b>=HELP</span>
   <span class="fkey"><b>F3</b>=EXIT</span>
